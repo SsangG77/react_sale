@@ -5,6 +5,7 @@ import data from "./data";
 
 //컴포넌트
 import Detail from "./routes/Detail";
+import About from "./routes/about";
 
 //리액트 관련
 import { Col, Row, Nav, Navbar, Container } from "react-bootstrap";
@@ -22,7 +23,7 @@ function App() {
       <ColorSchemesExample />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/detail" element={<Detail shoes={shoes} />} />
+        <Route path="/detail/:i" element={<Detail shoes={shoes} />} />
         <Route
           path="/event"
           element={
@@ -35,6 +36,7 @@ function App() {
           <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>}></Route>
           <Route path="two" element={<div>생일기념 쿠폰받기</div>}></Route>
         </Route>
+        <Route path="/about" element={<About />} />
       </Routes>
     </div>
   );
@@ -83,8 +85,9 @@ function ColorSchemesExample() {
           <Navbar.Brand href="/">Navbar</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/detail">Detail</Nav.Link>
+            <Nav.Link href="/detail/0">Detail</Nav.Link>
             <Nav.Link href="/event">Event</Nav.Link>
+            <Nav.Link href="/about">About</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
