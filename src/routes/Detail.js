@@ -1,7 +1,13 @@
+//리액트
 import { useParams } from "react-router-dom";
 import { Col, Row, Nav, Navbar, Container } from "react-bootstrap";
+import { useEffect, useState } from "react";
+
+//라이브러리
 import styled from "styled-components";
-import { useState } from "react";
+
+//css
+import "../App.css";
 
 let links = [
   "https://codingapple1.github.io/shop/shoes1.jpg",
@@ -14,8 +20,19 @@ let links = [
 
 function Detail(props) {
   let { i } = useParams();
+  let [fade, setFade] = useState("");
+
+  useEffect(() => {
+    setTimeout(() => {
+      setFade("end");
+    }, 100);
+    return () => {
+      setFade("");
+    };
+  }, []);
+
   return (
-    <div className="container">
+    <div className={"container start " + fade}>
       <div className="row">
         <div className="col-md-6">
           <img src={links[i]} width="100%" />
@@ -62,7 +79,6 @@ function Tabs() {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      {tab == 0 ? <div>내용1</div> : tab == 1 ? <div>내용2</div> : tab == 2 ? <div>내용3</div> : null}
       <TabContent tab={tab} />
     </>
   );
@@ -70,13 +86,19 @@ function Tabs() {
 
 function TabContent(props) {
   let tab = props.tab;
-  if (tab == 0) {
-    return <div>내용 1</div>;
-  }
-  if (tab == 1) {
-    return <div>내용 2</div>;
-  }
-  if (tab == 2) {
-    return <div>내용 3</div>;
-  }
+  let [fade, setFade] = useState("");
+
+  useEffect(() => {
+    //className의 값을 바꾸는 코드
+    console.log("a");
+    setTimeout(() => {
+      setFade("end");
+    }, 100);
+    return () => {
+      console.log("b");
+      setFade("");
+    };
+  }, [tab]);
+
+  return <div className={"start " + fade}>{[<div>내용 1</div>, <div>내용 2</div>, <div>내용 3</div>][tab]}</div>;
 }
