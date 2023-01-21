@@ -44,15 +44,16 @@ function Detail(props) {
           <button className="btn btn-danger">주문하기</button>
         </div>
       </div>
-      <Tabs />
+      <Tabs shoes={props.shoes} />
     </div>
   );
 }
 
 export default Detail;
 
-function Tabs() {
+function Tabs(props) {
   let [tab, changeTab] = useState(0);
+  let shoes = props.shoes;
 
   let change = function (e) {
     let num = Number(e.target.id);
@@ -79,7 +80,7 @@ function Tabs() {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent tab={tab} />
+      <TabContent tab={tab} shoes={shoes} />
     </>
   );
 }

@@ -8,6 +8,7 @@ import axios from "axios";
 import Detail from "./routes/Detail";
 import About from "./routes/about";
 import { Tabs } from "./routes/Detail";
+import { Basket } from "./routes/Basket";
 
 //리액트 관련
 import { Col, Row, Nav, Navbar, Container } from "react-bootstrap";
@@ -80,6 +81,7 @@ function App() {
           <Route path="two" element={<div>생일기념 쿠폰받기</div>}></Route>
         </Route>
         <Route path="/about" element={<About />} />
+        <Route path="/basket" element={<Basket />} />
       </Routes>
     </div>
   );
@@ -111,6 +113,7 @@ function ColorSchemesExample() {
             <Nav.Link href="/detail/0">Detail</Nav.Link>
             <Nav.Link href="/event">Event</Nav.Link>
             <Nav.Link href="/about">About</Nav.Link>
+            <Nav.Link href="/basket">Basket</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
