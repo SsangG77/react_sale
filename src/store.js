@@ -2,10 +2,16 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 let user = createSlice({
   name: "user",
-  initialState: "sangjin",
+  initialState: { name: "sangjin", age: 20 },
   reducers: {
     changeName(state) {
-      return "sangjin cha";
+      state.name = "park";
+      state.age = state.age + 1;
+      return state;
+    },
+    increase(state) {
+      state.age = state.age + 1;
+      return state;
     },
   },
 });
@@ -17,11 +23,14 @@ let cart = createSlice({
     { id: 1, name: "Grey Yordan", count: 1 },
   ],
   reducers: {
-    countUp(state) {
-      return state + 1;
+    countUp(state, i) {
+      console.log(i.payload);
+      state[i.payload].count += 1;
+      return state;
     },
   },
 });
+
 //둥록
 export default configureStore({
   reducer: {
@@ -32,3 +41,4 @@ export default configureStore({
 
 export let { changeName } = user.actions;
 export let { countUp } = cart.actions;
+export let { increase } = cart.actions;
