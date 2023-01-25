@@ -2,6 +2,9 @@
 import { useParams } from "react-router-dom";
 import { Col, Row, Nav, Navbar, Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { addItem } from "../store.js";
 
 //라이브러리
 import styled from "styled-components";
@@ -20,7 +23,16 @@ let links = [
 
 function Detail(props) {
   let { i } = useParams();
+
+  let watched = localStorage.getItem("watched");
+  let copy = [...watched];
+  copy.push(i.toString);
+  localStorage.removeItem("watched");
+  localStorage.setItem("watched", copy);
+
   let [fade, setFade] = useState("");
+  let dispatch = useDispatch();
+  let state = useSelector((state) => state);
 
   useEffect(() => {
     setTimeout(() => {
@@ -38,10 +50,17 @@ function Detail(props) {
           <img src={links[i]} width="100%" />
         </div>
         <div className="col-md-6 mt-4">
-          <h4 className="pt-5">{props.shoes[i].title}</h4>
-          <p>{props.shoes[i].content}</p>
-          <p>{props.shoes[i].price}원</p>
-          <button className="btn btn-danger">주문하기</button>
+          <h4 className="pt-5">{props.shoes.title}</h4>
+          <p>{props.shoes.content}</p>
+          <p>{props.shoes.price}원</p>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              dispatch(addItem({ id: 3, name: "test", count: 3 }));
+            }}
+          >
+            주문하기
+          </button>
         </div>
       </div>
       <Tabs shoes={props.shoes} />

@@ -28,6 +28,10 @@ let cart = createSlice({
       state[i.payload].count += 1;
       return state;
     },
+
+    addItem(state, obj) {
+      state.push(obj.payload);
+    },
   },
 });
 
@@ -39,6 +43,5 @@ export default configureStore({
   },
 });
 
-export let { changeName } = user.actions;
-export let { countUp } = cart.actions;
-export let { increase } = cart.actions;
+export let { changeName, increase } = user.actions;
+export let { addItem, countUp } = cart.actions;

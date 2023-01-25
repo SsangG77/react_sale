@@ -12,7 +12,7 @@ import { Basket } from "./routes/Basket";
 
 //리액트 관련
 import { Col, Row, Nav, Navbar, Container } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes, Link, useNavigate, Outlet } from "react-router-dom";
 
 let links = [
@@ -27,6 +27,12 @@ let links = [
 function App() {
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
+
+  //console.log(localStorage.getItem("watched"));
+
+  useEffect(() => {
+    localStorage.setItem("watched", []);
+  });
 
   return (
     <div className="App">
@@ -67,7 +73,7 @@ function App() {
             </>
           }
         />
-        <Route path="/detail/:i" element={<Detail shoes={shoes} />} />
+        <Route path={`/detail/:0`} element={<Detail shoes={shoes} />} />
         <Route
           path="/event"
           element={
@@ -96,7 +102,9 @@ function Item(props) {
   return (
     <Col>
       <img id="card" src={`https://codingapple1.github.io/shop/shoes${i + 1}.jpg`} />
-      <h4>{shoes.title}</h4>
+      <h4>
+        <a href={`/detail/:${i}`}>{shoes.title}</a>
+      </h4>
       <p>{shoes.price}</p>
     </Col>
   );
@@ -110,7 +118,7 @@ function ColorSchemesExample() {
           <Navbar.Brand href="/">Navbar</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/detail/0">Detail</Nav.Link>
+            <Nav.Link href="/detail/:0">Detail</Nav.Link>
             <Nav.Link href="/event">Event</Nav.Link>
             <Nav.Link href="/about">About</Nav.Link>
             <Nav.Link href="/basket">Basket</Nav.Link>
