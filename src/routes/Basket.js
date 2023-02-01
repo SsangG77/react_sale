@@ -1,22 +1,38 @@
 //컴포넌트
 
+import { useState, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import { changeName, countUp, increase } from "../store.js";
 
-export function Basket() {
-  let cart = useSelector((state) => {
-    return state.cart;
-  });
+// function Child() {
+//   console.log("자식 ");
+//   return <>자식임</>;
+// }
 
+let Child = memo(function () {
+  console.log("재렌더링됨.");
+  return <>자식임</>;
+});
+
+export function Basket() {
   let state = useSelector((state) => state);
-  console.log(state.cart);
 
   let dispatch = useDispatch();
 
+  let [count, setCount] = useState(0);
+
   return (
     <>
+      <Child></Child>
       <span>{state.user.name}</span>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        setCount
+      </button>
+      <span>{count}</span>
       <button
         onClick={() => {
           dispatch(changeName(state.user));

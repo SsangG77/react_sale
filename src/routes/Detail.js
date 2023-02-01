@@ -23,12 +23,19 @@ let links = [
 
 function Detail(props) {
   let { i } = useParams();
+  let num = Number(i);
+  console.log(num);
 
-  let watched = localStorage.getItem("watched");
-  let copy = [...watched];
-  copy.push(i.toString);
-  localStorage.removeItem("watched");
-  localStorage.setItem("watched", copy);
+  useEffect(() => {
+    let watched = localStorage.getItem("watched");
+    let watched_arr = JSON.parse(watched);
+    if (!watched_arr.includes(num)) {
+      watched_arr.push(num);
+      localStorage.setItem("watched", JSON.stringify(watched_arr));
+    }
+  });
+
+  console.log(localStorage.getItem("watched"));
 
   let [fade, setFade] = useState("");
   let dispatch = useDispatch();
@@ -47,12 +54,12 @@ function Detail(props) {
     <div className={"container start " + fade}>
       <div className="row">
         <div className="col-md-6">
-          <img src={links[i]} width="100%" />
+          <img src={links[num]} width="100%" />
         </div>
         <div className="col-md-6 mt-4">
-          <h4 className="pt-5">{props.shoes.title}</h4>
-          <p>{props.shoes.content}</p>
-          <p>{props.shoes.price}원</p>
+          <h4 className="pt-5">{props.shoes[num].title}</h4>
+          <p>{props.shoes[num].content}</p>
+          <p>{props.shoes[num].price}원</p>
           <button
             className="btn btn-danger"
             onClick={() => {
@@ -76,7 +83,7 @@ function Tabs(props) {
 
   let change = function (e) {
     let num = Number(e.target.id);
-    console.log(num);
+
     changeTab(num);
   };
 
@@ -108,17 +115,17 @@ function TabContent(props) {
   let tab = props.tab;
   let [fade, setFade] = useState("");
 
-  useEffect(() => {
-    //className의 값을 바꾸는 코드
-    console.log("a");
-    setTimeout(() => {
-      setFade("end");
-    }, 100);
-    return () => {
-      console.log("b");
-      setFade("");
-    };
-  }, [tab]);
+  // useEffect(() => {
+  //   //className의 값을 바꾸는 코드
+  //   console.log("a");
+  //   setTimeout(() => {
+  //     setFade("end");
+  //   }, 100);
+  //   return () => {
+  //     console.log("b");
+  //     setFade("");
+  //   };
+  // }, [tab]);
 
   return <div className={"start " + fade}>{[<div>내용 1</div>, <div>내용 2</div>, <div>내용 3</div>][tab]}</div>;
 }

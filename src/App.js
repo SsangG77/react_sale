@@ -30,9 +30,17 @@ function App() {
 
   //console.log(localStorage.getItem("watched"));
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   localStorage.setItem("watched", JSON.stringify([]));
+  // }, []);
+
+  let watched = localStorage.getItem("watched");
+  if (watched === null) {
+    console.log("watched 없음.");
     localStorage.setItem("watched", []);
-  });
+  } else {
+    console.log("watched 있음.");
+  }
 
   return (
     <div className="App">
@@ -73,7 +81,7 @@ function App() {
             </>
           }
         />
-        <Route path={`/detail/:0`} element={<Detail shoes={shoes} />} />
+        <Route path={`/detail/:i`} element={<Detail shoes={shoes} />} />
         <Route
           path="/event"
           element={
@@ -103,7 +111,7 @@ function Item(props) {
     <Col>
       <img id="card" src={`https://codingapple1.github.io/shop/shoes${i + 1}.jpg`} />
       <h4>
-        <a href={`/detail/:${i}`}>{shoes.title}</a>
+        <a href={`/detail/${i}`}>{shoes.title}</a>
       </h4>
       <p>{shoes.price}</p>
     </Col>
@@ -118,7 +126,7 @@ function ColorSchemesExample() {
           <Navbar.Brand href="/">Navbar</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/detail/:0">Detail</Nav.Link>
+            <Nav.Link href="/detail/0">Detail</Nav.Link>
             <Nav.Link href="/event">Event</Nav.Link>
             <Nav.Link href="/about">About</Nav.Link>
             <Nav.Link href="/basket">Basket</Nav.Link>
